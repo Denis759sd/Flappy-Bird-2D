@@ -16,6 +16,8 @@ pipeBottom.src = "assets/images/pipeBottom.png";
 
 var gap = 100;
 var score = 0;
+var die = 0; 
+var angle = 0, xPos, yPos;
 
 //Позиция птички
 var xPos = 10;
@@ -29,7 +31,7 @@ var score_audio = new Audio();
 fly.src = "assets/audio/fly.mp3"
 score_audio.src = "assets/audio/score.mp3"
 
-document.addEventListener("keydown", moveUp);
+document.addEventListener("click", moveUp);
 
 function moveUp () {
     yPos -= 25;
@@ -66,7 +68,16 @@ function draw() {
             && (yPos <= pipe[i].y + pipeUp.height
             || yPos + bird.height >= pipe[i].y + pipeUp.height + gap) || yPos + bird.height >= cvs.height - fg.height) {
                 grav = 0;
-                location.reload();
+                die = 1;
+
+                if(die == 1){
+                    location.reload();
+                    die = 2;
+                }
+                else
+                    die = 0;
+                
+               
         }
 
         
@@ -78,6 +89,7 @@ function draw() {
 
     ctx.drawImage(fg, 0, cvs.height - fg.height);
 
+    //ctx.drawImage(bird, xPos, yPos, angle);
     ctx.drawImage(bird, xPos, yPos);
 
     yPos += grav;
